@@ -4,7 +4,6 @@
 <div class="container">
     <h1 class="text-center mb-4">Task List</h1>
 
-    <!-- Project Dropdown -->
     <div class="form-group">
         <label for="projectFilter">Filter by Project:</label>
         <select id="projectFilter" class="form-control">
@@ -47,14 +46,11 @@
     new Sortable(taskList, {
         animation: 150,
         onStart: function (event) {
-            // Change the background color when dragging starts
-            event.item.style.backgroundColor = '#f8f9fa'; // Change to the desired background color
+            event.item.style.backgroundColor = '#f8f9fa';
         },
         onEnd: function (event) {
-            // Reset the background color when dragging ends
             event.item.style.backgroundColor = '';
 
-            // Handle sorting changes here
             var taskIds = [];
             var items = taskList.getElementsByClassName('list-group-item');
             for (var i = 0; i < items.length; i++) {
@@ -62,13 +58,12 @@
                 taskIds.push(taskId);
             }
 
-            // Send the sorted task IDs to the server via an AJAX request or another method
-            // You can use taskIds array to update the order in your database
+
         }
     });
 
     projectFilter.addEventListener('change', function () {
-        const selectedProjectId = this.value; // No need to parse since the value is a string
+        const selectedProjectId = this.value;
 
         const items = taskList.getElementsByClassName('list-group-item');
 
@@ -87,15 +82,12 @@
     // Function to confirm delete
     function confirmDelete(taskTitle, deleteButton) {
         if (confirm(`Are you sure you want to delete the task "${taskTitle}"?`)) {
-            // If the user confirms, submit the form to delete the task
             deleteButton.closest('form').submit();
         }
     }
 
-    // Initial filtering when the page loads (show all by default)
     projectFilter.dispatchEvent(new Event('change'));
 
-    // Handle the "All Projects" option initially selected
     if (projectFilter.value === '') {
         const items = taskList.getElementsByClassName('list-group-item');
         for (var i = 0; i < items.length; i++) {

@@ -15,10 +15,8 @@ use App\Http\Controllers\ProjectController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
+Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
 
 Route::resource('tasks', TaskController::class);
 Route::resource('projects', ProjectController::class);

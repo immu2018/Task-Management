@@ -11,15 +11,15 @@ class TaskController extends Controller
 {
         public function index()
     {
-        $tasks = Task::orderBy('id')->with('project')->get(); // Include the associated project
-        $projects = Project::all(); // Retrieve all projects from the database
+        $tasks = Task::orderBy('id')->with('project')->get();
+        $projects = Project::all();
         return view('tasks.index', compact('tasks', 'projects'));
     }
 
 
         public function create()
     {
-        $projects = Project::all(); // Retrieve all projects from the database
+        $projects = Project::all();
 
         return view('tasks.create', compact('projects'));
     }
@@ -28,15 +28,15 @@ class TaskController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|max:255',
-            'description' => 'nullable', // Allow for an optional description
-            'project_id' => 'nullable', // Allow for an optional project selection
+            'description' => 'nullable',
+            'project_id' => 'nullable',
         ]);
 
         Task::create([
             'title' => $request->input('title'),
-            'description' => $request->input('description'), // Save the description
-            'project_id' => $request->input('project_id'), // Save the project_id
-            'order' => Task::count() + 1, // Assign a new order
+            'description' => $request->input('description'),
+            'project_id' => $request->input('project_id'),
+            'order' => Task::count() + 1,
         ]);
 
         return redirect()->route('tasks.index')->with('success', 'Task created successfully');
@@ -44,7 +44,7 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
-        $projects = Project::all(); // Retrieve all projects from the database
+        $projects = Project::all();
         return view('tasks.edit', compact('task', 'projects'));
     }
 
@@ -52,11 +52,11 @@ class TaskController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|max:255',
-            'description' => 'nullable', // Allow for an optional description
-            'project_id' => 'nullable', // Allow for an optional project selection
+            'description' => 'nullable',
+            'project_id' => 'nullable',
         ]);
 
-        // Update all fields including title, description, and project_id
+
         $task->update([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
@@ -71,6 +71,5 @@ class TaskController extends Controller
         $task->delete();
         return redirect()->route('tasks.index')->with('success', 'Task deleted successfully');
     }
-
 
 }

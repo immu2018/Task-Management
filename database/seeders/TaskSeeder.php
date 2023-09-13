@@ -10,7 +10,6 @@ class TaskSeeder extends Seeder
 {
     public function run()
     {
-        // Add some dummy tasks
         Task::create([
             'title' => 'Task 1',
             'description' => 'Description for Task 1',
@@ -21,6 +20,5 @@ class TaskSeeder extends Seeder
             'description' => 'Description for Task 2',
         ]);
 
-        // Add more tasks as needed
     }
 }
